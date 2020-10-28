@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body,html{
+            width: 100%;
+            background: linear-gradient(
+                to right, rgba(10, 7, 7, 0),
+                 rgba(133, 75, 75, 0.7));
+        }
+        #count{
+            width: 100%;
+            background: linear-gradient(
+                to right, rgba(189, 47, 47, 0.616),
+                 rgba(189, 40, 40, 0.959));
+        }
+        #cost{
+            width: 200px;
+            height: 50px;
+            text-align: center;
+            line-height:50px;
+            background-color:  #21afb4;
+            color: white;
+            font-size: 24px;
+        }
+        #suggestions{
+            font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+            border-collapse: collapse;
+            width: 100%;
+            margin-bottom: 20px;
+          }
+        #suggestions td, #suggestions th {
+            border: 1px solid rgba(129, 123, 123, 0.513);
+            padding: 8px;
+            text-align: center;
+          }
+          #suggestions tr:nth-child{background-color: #f2f2f2a9;}
+          #suggestions tr:hover {background-color: #ddd;}
+
+            #suggestions th {
+            padding-top: 12px;
+            padding-bottom: 12px;
+            text-align: left;
+            background-color: #4CAF50;
+            color: white;
+            }
+    </style>
+</head>
+<body>
+    <h1>Total Suggestions  {{length}}</h1>
+    {% for data in DataList %}
+        <div id="count">Alternative {{data.count}}</div>
+        <div id="cost">Total Cost : {{data.cost}}</div>
+        <table id="suggestions">
+            <tr>
+                {% for item in data.items %}
+                    <th>{{ item.name }}</th>
+                {% endfor %}
+            </tr>
+            <tr>
+                {% for item in data.items %}
+                    <td>{{item.time}}</td>
+                {% endfor %}
+            </tr>
+        </table>
+    {%endfor%}
+</body>
+</html>
+

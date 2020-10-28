@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Info Page</title>
+    <style>
+        body,html{
+            width: 100%;
+            margin: 0 ;
+            background: linear-gradient(
+                to right, rgba(7, 69, 240, 0.835),
+                 rgba(170, 12, 209, 0.7));
+            text-transform: uppercase;
+        }
+        #operate{
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            text-align: center;
+            color: white;
+            background: linear-gradient(
+                to right, rgba(7, 69, 240, 0.835),
+                 rgba(170, 12, 209, 0.7));
+        }
+        #operate h2{
+            font-size: 48px;
+        }
+        #operate p{
+            font-size: 24px;
+            margin-top: 10%;
+        }
+        #operate #proceed{
+            position: absolute;
+            background-color: #4CAF50;
+            width: 70%;
+            padding: 10px;
+            outline: none;
+            border-radius: 15px;
+            color: azure;
+            font-size: 24px;
+            bottom: 20%;
+            left: 15%;
+            border: none;
+        }
+        #data{
+            display: none;
+        }
+        #Data{
+            width: 100%;
+            position: fixed;
+            scroll-behavior: none;
+            background: linear-gradient(
+                to right, rgba(7, 69, 240, 0.835),
+                 rgba(170, 12, 209, 0.7));
+        }
+        #data  #info{
+            width: 100%;
+            padding-top: 20%;
+           text-align: center;
+            position: absolute;
+            color: white;
+            font-size: 24px;
+        }
+        #data #info input{
+            text-align: center;
+            width: 80%;
+            padding: 10px;
+            color: rgb(209, 13, 13);
+            margin-top: 30px;
+        }
+        #data #navigation {
+            display: none,
+        }
+        .restrict{
+            display: block;
+        }
+        #next{
+            display: none;
+            position: fixed;
+            bottom: 10%;
+            right: 10%;
+            width: 15%;
+            height: 15%;
+            background-color:transparent;
+            color: white;
+            background-color: black;
+            border-radius: 50%;
+            outline: none;
+            border: none;
+        }
+        #next button{
+            width: 100%;
+            height: 100%;
+            color: white;
+            background-color: black;
+            border-radius: 50%;
+            outline: none;
+            border: none;
+        }
+        #info , .appliance{
+            position: fixed;
+            height: 100%;
+            width: 100%;
+            background: linear-gradient(
+                to right, rgba(7, 69, 240, 0.835),
+                 rgba(170, 12, 209, 0.7));
+        } 
+        .appliance{
+            width: 100%;
+            text-align: center;
+            color: white;
+            font-size: 36px;
+        }
+        .appliance h2{
+            font-size: 48px
+        }
+        .appliance input[type='number']{
+            width: 80%;
+            padding: 10px;
+            font-size: 20px;
+            color: red;
+            text-align: center;
+        }
+        .appliance  .restrict{
+            text-align: left;
+            margin-top: 30px;
+        }
+        #navigation{
+            display: none;
+            position: fixed;
+            text-align: center;
+            bottom: 10%;
+            right: 10%;
+            width: 15%;
+            height: 15%;
+            background-color:transparent;
+            color: white;
+            background:transparent;
+            border-radius: 50%;
+            outline: none;
+        }
+        #process{
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            background-color: #4CAF50;
+            outline: none;
+            border: none;
+        }
+    </style>
+</head>
+<body>
+    
+    <div id="operate">
+        <h2>Bill Info</h2>
+        <p>
+            This form will demand some information about quantity and need of the
+            Electronic appliances you have in your house.If you fill it sincerely 
+            AI will suggest you the best ways to keep your bill about target 
+            price you want it to be.
+        </p> 
+        <button id="proceed">PROCEED</button>
+    </div>
+    <form  method="post" action="{% url 'EB:processing' %}"  id="data">
+        {% csrf_token %}
+        <div id="info">
+            <label>Enter the your expected light bill
+                <input type="number" name="target" min="100" value="3000">
+            </label>
+        </div>
+        <div id="Data">
+            <div id="fan" class="appliance">
+                <h2>Fan</h2>
+                <label>Number of fans<br>
+                    <input type="number" name="fanQ" value="3" min="0"  required>
+                </label><br>
+                <label>Least Time Required<br>
+                    <input type="number" name="fanT" value="8" min="0" max="24" required>
+                </label><br>
+                <label>
+                <div class="restrict">
+                    <input type="radio" name="restrictionFan" value="high" >Enough Time<br>
+                    <input type="radio" name="restrictionFan" value="medium">Increase a little bit<br>
+                    <input type="radio" name="restrictionFan" value="low" checked>Would be happy to increase time
+                </div>      
+                </label>
+            </div>
+            <div id="tubelight" class="appliance">
+                <h2>Tubelight</h2>
+                <label>Number of Tubelights<br>
+                    <input type="number" name="tubelightQ" value="3" min="0" required>
+                </label><br>
+                <label>Least Time Required<br>
+                    <input type="number" name="tubelightT" value="2" min="0" max="24" required>
+                </label><br>
+                <label>
+                    <div class="restrict">
+                        <input type="radio" name="restrictionTube" value="high" checked>Enough Time<br>
+                    <input type="radio" name="restrictionTube" value="medium">Increase a little bit<br>
+                    <input type="radio" name="restrictionTube" value="low">Would be happy to increase time
+                    </div>
+                    
+                </label>
+            </div>
+            <div id="bulb" class="appliance">
+                <h2>Bulb</h2>
+                <label>Number of Bulbs<br>
+                    <input type="number" name="bulbQ" value="2" min="0" required>
+                </label><br>
+                <label>Least Time Required<br>
+                    <input type="number" name="bulbT" value="1" min="0" max="24" required>
+                </label><br>
+                <label>
+                    <div class="restrict">
+                        <input type="radio" name="restrictionBulb" value="high" checked>Enough Time<br>
+                    <input type="radio" name="restrictionBulb" value="medium">Increase a little bit<br>
+                    <input type="radio" name="restrictionBulb" value="low">Would be happy to increase time
+                    </div>
+                </label>
+            </div>
+            <div id="tv" class="appliance">
+                <h2>Telivision</h2>
+                <label>Number of TVs<br>
+                    <input type="number" name="TVQ" value="1" min="0" required>
+                </label><br>
+                <label>Least Time Required<br>
+                    <input type="number" name="TVT" value="5" min="0" max="24" required>
+                </label><br>
+                <label>
+                    <div class="restrict" >
+                        <input type="radio" name="restrictionTV" value="high" checked>Enough Time<br>
+                    <input type="radio" name="restrictionTV" value="medium">Increase a little bit<br>
+                    <input type="radio" name="restrictionTV" value="low">Would be happy to increase time
+                    </div>
+                </label>
+            </div>
+            <div id="laptop" class="appliance">
+                <h2>Laptop(s)</h2>
+                <label>Number of laptops<br>
+                    <input type="number" name="laptopQ" value="2" min="0" required>
+                </label><br>
+                <label>Least Time you recharge your laptop<br>
+                    <input type="number" name="laptopT" value="10" min="0" max="24" required>
+                </label><br>
+                <label>
+                    <div class="restrict">
+                        <input type="radio" name="restrictionLaptop" value="high" checked>Enough Time<br>
+                    <input type="radio" name="restrictionLaptop" value="medium">Increase a little bit<br>
+                    <input type="radio" name="restrictionLaptop" value="low">Would be happy to increase time
+                    </div>
+                </label>
+            </div>
+            <div id="mobile" class="appliance">
+                <h2>Mobiles</h2>
+                <label>Number of mobiles<br>
+                    <input type="number" name="mobileQ" value="4" min="0" required>
+                </label><br>
+                <label>Least Time You recharge your mobile<br>
+                    <input type="number" name="mobileT" value="8" min="0" max="24" required>
+                </label><br>
+                <label>
+                    <div class="restrict">
+                        <input type="radio" name="restrictionMobile" value="high" checked>Enough Time<br>
+                    <input type="radio" name="restrictionMobile" value="medium">Increase a little bit<br>
+                    <input type="radio" name="restrictionMobile" value="low">Would be happy to increase time
+                    </div>
+                </label>
+            </div>
+            <div id="fridge" class="appliance">
+                <h2>Fridge</h2>
+                <label>Number of Fridge<br>
+                    <input type="number" name="fridgeQ" value="1" min="0" required>
+                </label><br>
+                <label>Least Time Required <br>
+                    <input type="number" name="fridgeT" value="24" min="0" max="24" required>
+                </label><br>
+                <label>
+                   <div class="restrict">
+                    <input type="radio" name="restrictionFridge" value="high" checked>Enough Time<br>
+                    <input type="radio" name="restrictionFridge" value="medium">Increase a little bit<br>
+                    <input type="radio" name="restrictionFridge" value="low">Would be happy to increase time
+                   </div>
+                </label>
+            </div>
+        </div>
+        <div id="navigation" >
+            <input type="submit"  id="process">
+        </div>
+    </form>
+    <button id="next">Next</button>
+    <script>
+        var count = 1;
+        var index = "operate";
+        var travel = {
+            "operate" : "info",
+            "info" : "fan", 
+            "fan" : "tubelight",
+            "tubelight" : "bulb",
+            "bulb" : "tv",
+            "tv" : "laptop",
+            "laptop" : "mobile",
+            "mobile" : "fridge",
+        }
+        var proceed = document.getElementById('proceed');
+        var next = document.getElementById('next');
+        proceed.addEventListener('click', showInfo);
+        next.addEventListener('click',displayForm)
+        function showInfo(){
+            document.getElementById('operate').style.display = 'none';
+            document.getElementById('data').style.display  = 'block';
+            document.getElementById('next').style.display  = 'block';
+            displayForm();
+        }
+        function reset(){
+            document.getElementById('info').style.display = 'none';
+            document.getElementById('fan').style.display = 'none';
+            document.getElementById('tubelight').style.display = 'none';
+            document.getElementById('bulb').style.display = 'none';
+            document.getElementById('tv').style.display = 'none';
+            document.getElementById('laptop').style.display = 'none';
+            document.getElementById('mobile').style.display = 'none';
+            document.getElementById('fridge').style.display = 'none';
+            document.getElementById('navigation').style.display  = 'none';
+            //document.getElementById('next').style.display = 'none';
+        }
+        function displayForm(){
+            reset();
+            document.getElementById(travel[index]).style.display = 'block';
+            index = travel[index];
+            if(count == 8){
+                document.getElementById('next').style.display = 'none';
+                document.getElementById('navigation').style.display = ' block';
+            }
+            else{
+                count += 1;
+            }
+        }
+    </script>
+</body>
+</html>
